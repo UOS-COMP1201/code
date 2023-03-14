@@ -3,4 +3,3 @@ B !C D
 !A !B
 !A !C !D
 A
-!D
