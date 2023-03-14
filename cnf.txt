@@ -1,0 +1,11 @@
+c Propositional formula in DIMACS format
+c lines starting with 'c' are comments
+c after that line that starts with 'p cnf nvars nclauses'
+c specifies the number of variables and the number of clauses
+c a negative sign implies the negation of a variable
+p cnf 4 5
+1 2 0
+2 -3 4 0
+-1 -2 0
+-1 -3 -4 0
+1 0

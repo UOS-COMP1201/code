@@ -5,13 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "dpll",
+            "request": "launch",
+            "mainClass": "dpll",
+            "projectName": "comp1201-code_905b9da6"
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args": ["input2.txt"]
+            "args": [
+                "input2.txt"
+            ]
         }
     ]
 }
