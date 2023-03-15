@@ -2,7 +2,8 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashSet;
-
+import java.util.Iterator;
+import java.util.Vector;
 class dpll {
 public static void main(String[] argv){
     HashSet<Integer> clause;
@@ -75,15 +76,22 @@ public static void main(String[] argv){
                 
     return modified;
     }
+    private static Integer getUnitElement(HashSet<Integer> clause){
+        for(Integer e:clause)
+                return e;
+        return null;
+    }
     public static void unitPropagation(HashSet<HashSet<Integer>> formula){
-        HashSet<HashSet<Integer>> unit_clauses=new HashSet<>();
+        Vector<Integer> unit_clauses=new Vector<>();
         for(HashSet<Integer> c:formula)
-            if(c.size()==1)unit_clauses.add(c);
+            if(c.size()==1)unit_clauses.add(getUnitElement(c));
         while(unit_clauses.size()>0){
-
-
-
-            
+            Integer unit=unit_clauses.remove(0);
+            formula=reduceFormula(formula,unit);
+            if (formula==null) return;
+            unit_clauses=new Vector<>();
+            for(HashSet<Integer> c:formula)
+                if(c.size()==1)unit_clauses.add(getUnitElement(c));            
         }
 
     }
