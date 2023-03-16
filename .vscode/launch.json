@@ -9,6 +9,13 @@
             "name": "dpll",
             "request": "launch",
             "mainClass": "dpll",
+            "projectName": "code_6a5e9eeb"
+        },
+        {
+            "type": "java",
+            "name": "dpll",
+            "request": "launch",
+            "mainClass": "dpll",
             "projectName": "comp1201-code_905b9da6"
         },
         {

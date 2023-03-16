@@ -18,7 +18,12 @@ def parse(filename):
         formula.append(clause)
     return formula, int(nbvars)
 
-
+def print_formula(formula):
+    for c in formula:
+        print("(",end="")
+        print(c,end="")
+        print(")",end="")
+    print()
 def reduce_formula(formula, unit):
     # if a clause contains the unit literal remove the clause
     # if it contains the negation of the unit literal remove the negation from the clause
@@ -32,6 +37,7 @@ def reduce_formula(formula, unit):
             modified.append(c)
         else:
             modified.append(clause)
+    print_formula(modified)
     return modified
 
 
