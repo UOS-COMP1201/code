@@ -2,9 +2,8 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Vector;
-
+import java.util.HashMap;
 final class Clause extends HashSet<Integer> {};
 
 class dpll {
@@ -35,16 +34,29 @@ public static void main(String[] argv){
             formula.add(clause);
         }
     reader.close();
-   // printFormula(formula);
+    // HashMap<Integer,Integer> pure=countLiterals(formula);
+    // System.out.println(pure);
+    Vector<Integer> a=backtrack(formula,new Vector<Integer>());
+    System.out.println(a);
     //HashSet<Clause> modified=reduceFormula(formula, 1);
-    HashSet<Clause> modified=unitPropagation(formula);
-    System.out.println("\n Reduced formula");
+    //HashSet<Clause> modified=unitPropagation(formula);
+    //System.out.println("\n Reduced formula");
     }
     catch(IOException e){
         e.printStackTrace();
     }
    
 }
+
+    public static Vector<Integer> backtrack(HashSet<Clause> formula,Vector<Integer> assignment){
+      
+        formula=pure_literals(formula,assignment);
+        formula=unitPropagation(formula,assignment);
+
+        if(formula==null) return new Vector<Integer>();
+
+        return assignment;
+    }
     public static void printFormula(HashSet<Clause> formula){
         for(Clause c: formula){
             System.out.print("(");
@@ -84,12 +96,13 @@ public static void main(String[] argv){
                 return e;
         return null;
     }
-    public static HashSet<Clause> unitPropagation(HashSet<Clause> formula){
+    public static HashSet<Clause> unitPropagation(HashSet<Clause> formula,Vector<Integer> assignment){
         Vector<Integer> unit_clauses=new Vector<>();
         for(Clause c:formula)
             if(c.size()==1)unit_clauses.add(getElement(c));
         while(unit_clauses.size()>0){
             Integer unit=unit_clauses.firstElement();
+            assignment.add(unit);
             formula=reduceFormula(formula,unit);
             printFormula(formula);
 
@@ -102,4 +115,31 @@ public static void main(String[] argv){
         return formula;
 
     }
+    public static HashMap<Integer,Integer>
+            countLiterals(HashSet<Clause> formula){
+                HashMap<Integer,Integer> counter=new HashMap<>();
+                for(Clause c:formula){
+                    for(Integer literal: c){
+                        if (counter.containsKey(literal))
+                            counter.put(literal,counter.get(literal)+1);
+                        else
+                            counter.put(literal,1);
+                    }
+                }
+                return counter;
+            }
+
+    public static HashSet<Clause> pure_literals(HashSet<Clause> formula,Vector<Integer> assignment){
+        HashMap<Integer,Integer> counter=countLiterals(formula);
+        Vector<Integer> pures=new Vector<>();
+        counter.forEach((k,v)->{
+            if (!counter.containsKey(-k)) pures.add(k);
+        });
+        for(Integer pure:pures){
+            assignment.add(pure);
+            formula=reduceFormula(formula,pure);
+        }
+        return formula;
+    }
+    
 }
