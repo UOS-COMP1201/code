@@ -1,4 +1,3 @@
-package midterm;
 import java.util.*;
 
 
@@ -17,14 +16,17 @@ static int bfsVisit(BfsVertex source,BfsVertex dest,int m) {
 		Iterator<BfsVertex> itr=u.getAdj().iterator();
 		/* once the frontier is at a distance
 		 * greater than m exit the loop
-		 */
-		if(u.d>m)break;
+		 */  
 			/* we might have multiple copies
 			 * of the destination so we
 			* compare the labels NOT the objects 
 			*/
-		if(u.label==dest.label && u.d==m)
-			count++;
+		if(u.d==m){
+			if(u.label.equals(dest.label))
+				count++;
+			continue;
+		}
+			
 		while(itr.hasNext()) {
 			BfsVertex v=itr.next();
 			//make a copy of v
@@ -41,27 +43,27 @@ static int bfsVisit(BfsVertex source,BfsVertex dest,int m) {
 
 public static void main(String[] args){
 			// total number of nodes in the graph
-	int n = 8;
-			
-	BfsGraph g=new BfsGraph();
+	int n = 5;
+	//a=0,b=1,c=2,d=3,e=4		
+	//BfsGraph g=new BfsGraph();
 	BfsVertex[] nodes=new BfsVertex[n];
 	for(int i=0;i<n;++i)
 		nodes[i]=new BfsVertex(Integer.toString(i));
-			
-	nodes[0].addAdj(nodes[6]);nodes[0].addAdj(nodes[1]);
-	nodes[1].addAdj(nodes[6]);nodes[1].addAdj(nodes[5]);nodes[1].addAdj(nodes[2]);
-	nodes[2].addAdj(nodes[3]);
+	//a	
+	nodes[0].addAdj(nodes[1]);nodes[0].addAdj(nodes[2]);
+	//b
+	nodes[1].addAdj(nodes[3]);nodes[1].addAdj(nodes[4]);
+	//c
+	nodes[2].addAdj(nodes[1]);nodes[2].addAdj(nodes[3]);
+	//d
 	nodes[3].addAdj(nodes[4]);
-	nodes[5].addAdj(nodes[2]);nodes[5].addAdj(nodes[3]);nodes[5].addAdj(nodes[4]);
-	nodes[6].addAdj(nodes[5]);
-	nodes[7].addAdj(nodes[6]);
-	nodes[7].addAdj(nodes[1]);
+	
 			
 
 	int m = 3;
 
 			// Do modified BFS traversal from the source vertex 
-	System.out.println(bfsVisit(nodes[0],nodes[3],m));
+	System.out.println(bfsVisit(nodes[0],nodes[4],m));
 	}
 }
 
