@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Lists",
+            "request": "launch",
+            "mainClass": "Lists",
+            "projectName": "code_4e4172cf"
+        },
+        {
+            "type": "java",
             "name": "dpll",
             "request": "launch",
             "mainClass": "dpll",
