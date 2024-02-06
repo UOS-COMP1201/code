@@ -9,6 +9,13 @@
             "name": "Lists",
             "request": "launch",
             "mainClass": "Lists",
+            "projectName": "comp1201-code_905b9da6"
+        },
+        {
+            "type": "java",
+            "name": "Lists",
+            "request": "launch",
+            "mainClass": "Lists",
             "projectName": "code_4e4172cf"
         },
         {
