@@ -15,7 +15,7 @@ class Solution(object):
                     M[i][j]=2+M[i+1][j-1]
                 else:
                     M[i][j]=max(M[i+1][j],M[i][j-1])
-#print(np.array(M))
+        print(np.array(M))
         nexti=0
         nextj=n-1
         sol=[]

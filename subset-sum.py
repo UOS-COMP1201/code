@@ -1,16 +1,16 @@
-from numpy import *
+import numpy as np
 num=5
-items=random.randint(1,20,num+1)
-items=[0,12,8,6,13,7]
+items=np.random.randint(1,20,num+1)
+items=[0,2,8,3,13,7]
 #items=[0,2,3,4,8,10]
 #x=array([12,8,6,13,7])
-value=random.randint(20,30,1).item()
-value=26
+value=np.random.randint(20,30,1).item()
+value=12
 #value=7
 
 
 def bottom_up(x,num,value):
-    opt=zeros((num+1,value+1),dtype=bool)    
+    opt=np.zeros((num+1,value+1),dtype=bool)    
     opt[:,0]=True
     for n in range(1,num+1):
         for s in range(1,value+1):
@@ -35,18 +35,25 @@ def get_sol(opt,x,num,value):
     n=num
     s=value
     sol=[]
+    # this function is called only if the solution exists
+    # this means opt[n,s] is True as a starting point
     while not (n==0 or s==0):
-        if s-x[n]>=0 and opt[n,s-x[n]]==True:
+        if s-x[n]>=0 and opt[n-1,s-x[n]]==True:
             sol.append(x[n])
             s=s-x[n]
         n=n-1
-    return array(sol)
+    return np.array(sol)
 
+def arrayToLatex(a):
+    begin='\\begin{bmatrix}\n'
+    end='\n\\end{bmatrix}\n'
+    body=np.array2string(a,separator='&').replace('[','').replace(']','').replace(' ','').replace('\n','\\\\\n')
+    return begin+body+end
 r=subset_sum(items,num,value)
 opt=bottom_up(items,num,value)
 solution=None
-print(items[1:])
-print(value)
+print(items[1:],value)
+print(arrayToLatex(opt.astype(int)))
 print(r)
 if r==True:
     solution=get_sol(opt,items,num,value)

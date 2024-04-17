@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "sim",
+            "request": "launch",
+            "mainClass": "sim",
+            "projectName": "comp1201-code_905b9da6"
+        },
+        {
+            "type": "java",
             "name": "Lists",
             "request": "launch",
             "mainClass": "Lists",

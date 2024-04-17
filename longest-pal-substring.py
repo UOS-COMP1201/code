@@ -12,7 +12,7 @@ class Solution(object):
         maxp=1
         n=len(s)
         M_str=[[0 for i in range(n)] for j in range(n)]
-        nexti,nextj=0,0
+        start,end=0,0
    
     
         for i in range(n-1,-1,-1):
@@ -22,12 +22,11 @@ class Solution(object):
                     M_str[i][j]=True
                     if j-i+1>maxp:
                       maxp=j-i+1
-                      nexti=i
-                      nextj=j
+                      start,end=i,j
                 else:
                     M_str[i][j]=False
 
-        return s[nexti:nextj+1]
+        return s[start:end+1]
         
 #s=randomword(10000)
 s="ababaa"
