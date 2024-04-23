@@ -8,16 +8,33 @@ value=np.random.randint(20,30,1).item()
 value=12
 #value=7
 
-
-def bottom_up(x,num,value):
-    opt=np.zeros((num+1,value+1),dtype=bool)    
-    opt[:,0]=True
-    for n in range(1,num+1):
-        for s in range(1,value+1):
-            if s-x[n]>=0:
-                opt[n,s]=opt[n-1,s] or opt[n-1,s-x[n]]
+def as_knapsack(weights,C):
+    n=len(weights)-1
+    opt=np.zeros((n+1,C+1),dtype=int)
+    # no matter how many items we have, if the target is 0 (C=0)
+    # we have a solution since the empty set is a subset of any set
+    opt[:,0]=1
+    # no matter what the target is (other than 0), if we have no items, we can't have a solution
+    opt[0,1:]=0
+    for i in range(1,n+1):
+        for s in range(1,C+1):
+            if s-weights[i]>=0:
+                opt[i,s]=max(opt[i-1,s],opt[i-1,s-weights[i]])
             else:
-                opt[n,s]=opt[n-1,s]
+                opt[i,s]=opt[i-1,s]
+    return opt
+
+def bottom_up(x,value):
+    # -1 because we inserted a zero at the beginning
+    n=len(x)-1   
+    opt=np.zeros((n+1,value+1),dtype=bool)
+    opt[:,0]=True
+    for i in range(1,n+1):
+        for s in range(1,value+1):
+            if s-x[i]>=0:
+                opt[i,s]=opt[i-1,s] or opt[i-1,s-x[i]]
+            else:
+                opt[i,s]=opt[i-1,s]
 
     return opt
 
@@ -49,15 +66,16 @@ def arrayToLatex(a):
     end='\n\\end{bmatrix}\n'
     body=np.array2string(a,separator='&').replace('[','').replace(']','').replace(' ','').replace('\n','\\\\\n')
     return begin+body+end
-r=subset_sum(items,num,value)
-opt=bottom_up(items,num,value)
-solution=None
-print(items[1:],value)
-print(arrayToLatex(opt.astype(int)))
-print(r)
-if r==True:
-    solution=get_sol(opt,items,num,value)
-    print(solution)
-    
+# r=subset_sum(items,num,value)
+# opt=bottom_up(items,value)
+# solution=None
+# print(items[1:],value)
+# print(arrayToLatex(opt.astype(int)))
+# print(r)
+# if r==True:
+#     solution=get_sol(opt,items,num,value)
+#     print(solution)
+opt=as_knapsack(items,value) 
+print(opt)
             
             

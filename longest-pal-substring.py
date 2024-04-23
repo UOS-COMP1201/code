@@ -29,9 +29,21 @@ class Solution(object):
         return s[start:end+1]
         
 #s=randomword(10000)
-s="ababaa"
-sol=Solution()
-print(sol.longestPalindrome(s))
+s="dbabaa"
+#sol=Solution()
+#print(sol.longestPalindrome(s))
 
+def opt(X,i,j):
+    if i>j:
+        return 0
+    if i==j:
+        return 1
+    a=opt(s,i+1,j-1)
+    if X[i]==X[j] and a==j-i-1:
+        return 2+a
+    b=opt(s,i,j-1)
+    c=opt(s,i+1,j)
+    return max(a,b,c)
 
-    
+r=opt(s,0,len(s)-1)
+print(r)
