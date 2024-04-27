@@ -1,12 +1,14 @@
 import numpy as np
+# how many items to use
 num=5
+# item at index 0 is a dummy item
 items=np.random.randint(1,20,num+1)
-items=[0,2,8,3,13,7]
+#items=[0,2,8,3,13,7]
 #items=[0,2,3,4,8,10]
 #x=array([12,8,6,13,7])
-value=np.random.randint(20,30,1).item()
-value=12
-#value=7
+target=np.random.randint(20,30)
+#target=12
+#target=7
 
 def as_knapsack(weights,C):
     n=len(weights)-1
@@ -24,20 +26,20 @@ def as_knapsack(weights,C):
                 opt[i,s]=opt[i-1,s]
     return opt
 
-def bottom_up(x,value):
+def bottom_up(x,target):
     # -1 because we inserted a zero at the beginning
     n=len(x)-1   
-    opt=np.zeros((n+1,value+1),dtype=bool)
+    opt=np.zeros((n+1,target+1),dtype=bool)
     opt[:,0]=True
     for i in range(1,n+1):
-        for s in range(1,value+1):
+        for s in range(1,target+1):
             if s-x[i]>=0:
                 opt[i,s]=opt[i-1,s] or opt[i-1,s-x[i]]
             else:
                 opt[i,s]=opt[i-1,s]
 
     return opt
-
+# top down recursion
 def subset_sum(A,n,s):
     if s==0:
         return True
@@ -48,9 +50,11 @@ def subset_sum(A,n,s):
     else:
         return subset_sum(A,n-1,s)
     
-def get_sol(opt,x,num,value):
-    n=num
-    s=value
+# return the actual subset when it exists     
+def get_sol(opt,x,target):
+    # remember that the first element (index 0) is a dummy element
+    n=len(x)-1
+    s=target
     sol=[]
     # this function is called only if the solution exists
     # this means opt[n,s] is True as a starting point
@@ -66,16 +70,19 @@ def arrayToLatex(a):
     end='\n\\end{bmatrix}\n'
     body=np.array2string(a,separator='&').replace('[','').replace(']','').replace(' ','').replace('\n','\\\\\n')
     return begin+body+end
-# r=subset_sum(items,num,value)
-# opt=bottom_up(items,value)
-# solution=None
-# print(items[1:],value)
-# print(arrayToLatex(opt.astype(int)))
-# print(r)
-# if r==True:
-#     solution=get_sol(opt,items,num,value)
-#     print(solution)
-opt=as_knapsack(items,value) 
-print(opt)
+
+r=subset_sum(items,num,target)
+opt=bottom_up(items,target)
+
+# remember that the first element (index 0) is a dummy element
+print("set {} with target {}".format(items[1:],target))
+print(opt[num][target])
+#print(arrayToLatex(opt.astype(int)))
+#print(r)
+if opt[num][target]==True:
+    solution=get_sol(opt,items,target)
+    print("subset is {}".format(solution))
+# opt=as_knapsack(items,target) 
+# print(opt)
             
             

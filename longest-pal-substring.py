@@ -30,8 +30,9 @@ class Solution(object):
         
 #s=randomword(10000)
 s="dbabaa"
-#sol=Solution()
-#print(sol.longestPalindrome(s))
+s="aa"
+sol=Solution()
+print(sol.longestPalindrome(s))
 
 def opt(X,i,j):
     if i>j:
@@ -45,5 +46,5 @@ def opt(X,i,j):
     c=opt(s,i+1,j)
     return max(a,b,c)
 
-r=opt(s,0,len(s)-1)
-print(r)
+#r=opt(s,0,len(s)-1)
+#print(r)

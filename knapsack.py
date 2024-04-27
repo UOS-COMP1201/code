@@ -28,25 +28,23 @@ weights=np.insert(weights,0,0)
 #weights=[0,2,3,4,5]
 #values=[0,2,3,4,6]
 
-C=13
+#C=13
+# kmapsack capacity
 C=random.randint(1,100)
 n=len(values)
+# initialise the solution matrix to 0 
 opt=[(C+1)*[0] for i in range(n)]
-for i in range(n):
-  opt[i][0]=0
-for j in range(C+1):
-  opt[i][0]=0
+
+# 0-1 knapsack problem
 def knap(values,weights,C):
   for i in range(1,n):
     for j in range(1,C+1):
       if j>=weights[i]:
-        #u=opt[i-1][j]
-        #v=opt[i-1][j-weights[i]]
         opt[i][j]=max(opt[i-1][j],values[i]+opt[i-1][j-weights[i]])
       else:
         opt[i][j]=opt[i-1][j]
   return opt
-
+# knapsack problem with replacement, i.e. we can take the same item multiple times
 def knap_repl(values,weights,C):
   for i in range(1,n):
     for j in range(1,C+1):
@@ -59,7 +57,7 @@ def knap_repl(values,weights,C):
 
   return opt
 
-
+# returns the actual solution for 0-1 knapsack
 def sol(opt,weights,C):
   n=len(opt)
   i=n-1
@@ -71,6 +69,7 @@ def sol(opt,weights,C):
       j-=weights[i]
     i-=1
   return sol
+# returns the actual solution for knapsack with replacement
 def sol_repl(opt,weights,C):
   n=len(opt)
   i=n-1
@@ -83,14 +82,14 @@ def sol_repl(opt,weights,C):
     else:
       i-=1
   return sol
-
+# examples
 #opt=knap_repl(values,weights,C)
 opt=knap(values,weights,C)
 #printLatex(opt)
 #for i in range(n):
 #  print(opt[i])
 # print(sol_repl(opt,weights,C))
-print(opt[n-1][C])
+print("maximum value: {}".format(opt[n-1][C]))
 print("capacity:{}".format(C))
 print("weights:{}".format(weights[1:]))
 print("values:{}".format(values[1:]))
