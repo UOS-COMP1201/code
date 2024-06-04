@@ -45,4 +45,4 @@ for i in range(len(radj)):
         break
 # print the distance matrix
 # here we take the transpose so the output is similar to the example in the notes
-print(d.T)
+print(d.T[:,:-1])
