@@ -30,7 +30,7 @@ class Solution(object):
         
 #s=randomword(10000)
 s="dbabaa"
-s="aa"
+#s="aa"
 sol=Solution()
 print(sol.longestPalindrome(s))
 

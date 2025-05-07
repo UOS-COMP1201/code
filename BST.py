@@ -20,13 +20,23 @@ class BST():
         else:
             self.__insert(self.root,val)
     def inorder(self):
+       if self.root!=None:
+          self.__inorder(self.root)
+       print()
+    def rinorder(self):
         if self.root!=None:
-            self.__inorder(self.root)
+            self.__rinorder(self.root)
         print()
     def __inorder(self,root):
-        if root.left!=None:
-            self.__inorder(root.left)
+        if root == None:
+            return
+        self.__inorder(root.left)
         print(root.val,end=' ')
-        if root.right!=None:
-            self.__inorder(root.right)
+        self.__inorder(root.right)
 
+    def __rinorder(self,root):
+        if root == None: 
+           return
+        self.__rinorder(root.right)
+        print(root.val,end=' ')
+        self.__rinorder(root.left)

@@ -1,9 +1,9 @@
 import numpy as np
 # how many items to use
-num=5
+num=7
 # item at index 0 is a dummy item
 items=np.random.randint(1,20,num+1)
-#items=[0,2,8,3,13,7]
+items=[0,17,7,13,6,16,14,13]
 #items=[0,2,3,4,8,10]
 #x=array([12,8,6,13,7])
 target=np.random.randint(20,30)
@@ -70,7 +70,8 @@ def arrayToLatex(a):
     end='\n\\end{bmatrix}\n'
     body=np.array2string(a,separator='&').replace('[','').replace(']','').replace(' ','').replace('\n','\\\\\n')
     return begin+body+end
-
+target=sum(items[1:])//2
+print(f"sum={sum(items[1:])}")
 r=subset_sum(items,num,target)
 opt=bottom_up(items,target)
 

@@ -36,5 +36,8 @@ class Solution(object):
     
 
 sol=Solution()
-M,subtr=sol.longestPalindrome("xbcaaaacbd")
+input="xbcaaaacbd"
+input="xbcabcaabda"
+M,substr=sol.longestPalindrome(input)
 print(M)
+print(input,substr)
