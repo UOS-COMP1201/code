@@ -6,12 +6,12 @@ class BST():
     def __insert(self,p,val):
         if p.val>val:
             if p.left==None:
-                p.left=Node(val)
+                p.left=Node(val,parent=p)
             else:
                 self.__insert(p.left,val)
         else:
             if p.right==None:
-                p.right=Node(val)
+                p.right=Node(val,parent=p)
             else:
                 self.__insert(p.right,val)
     def insert(self,val):
@@ -31,7 +31,8 @@ class BST():
         if root == None:
             return
         self.__inorder(root.left)
-        print(root.val,end=' ')
+        #print(f'val={root.val},parent={root.parent.val if root.parent!=None else None}',end=' ')
+        print(f'val={root.val}',end=' ')
         self.__inorder(root.right)
 
     def __rinorder(self,root):
